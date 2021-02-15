@@ -5,8 +5,17 @@ function init()
 	pen = canvas.getContext('2d');
     cs = 66;
     game_over=false;
+    score=0;
 
     food = getRandomFood();
+
+    //food image 
+    food_image = new Image();
+    food_image.src = "fruti.jpg";
+
+    // trophy image
+    trophy = new Image();
+    trophy.src = "trophy.jpg";
     
     snake = {
 		init_len:4,
@@ -39,6 +48,7 @@ function init()
             {
                 console.log("food eaten");
                 food = getRandomFood();
+                score++;
             }
             else
             {
@@ -91,7 +101,12 @@ function draw()
     snake.drawSnake();
 
     pen.fillStyle = food.color;
-    pen.fillRect(food.x*cs,food.y*cs,cs,cs);
+    pen.drawImage(food_image,food.x*cs,food.y*cs,cs,cs);
+
+    pen.drawImage(trophy,18,20,cs,cs);
+	pen.fillStyle = "blue";
+	pen.font = "40px Roboto";
+	pen.fillText(score,50,50);
 }
 
 function update()
