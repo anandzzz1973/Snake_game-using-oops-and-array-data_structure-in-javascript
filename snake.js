@@ -1,7 +1,7 @@
 function init()
 {
     canvas = document.getElementById('mycanvas');
-	W = H = canvas.width = canvas.height = 1000;
+	W = H = canvas.width = canvas.height = 660;
 	pen = canvas.getContext('2d');
     cs = 66;
     game_over=false;
@@ -21,7 +21,7 @@ function init()
 		init_len:4,
 		color:"blue",
 		cells:[],
-		direction:"down",
+		direction:"right",
 
 		createSnake:function(){
 			for(var i=this.init_len;i>0;i--){
