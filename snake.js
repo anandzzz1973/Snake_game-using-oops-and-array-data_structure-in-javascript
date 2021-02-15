@@ -5,6 +5,8 @@ function init()
 	pen = canvas.getContext('2d');
     cs = 66;
     game_over=false;
+
+    food = getRandomFood();
     
     snake = {
 		init_len:4,
@@ -27,11 +29,21 @@ function init()
         },
 
         updateSnake:function(){
-            this.cells.pop();
+            // this.cells.pop();
 
             var headx=this.cells[0].x;
             var heady=this.cells[0].y;
             var X=headx,Y=heady;
+
+            if(X==food.x && Y==food.y)
+            {
+                console.log("food eaten");
+                food = getRandomFood();
+            }
+            else
+            {
+                this.cells.pop();
+            }
 
             if(this.direction=="right")
             X=headx+1;
@@ -77,6 +89,9 @@ function draw()
 {
     pen.clearRect(0,0,W,H);
     snake.drawSnake();
+
+    pen.fillStyle = food.color;
+    pen.fillRect(food.x*cs,food.y*cs,cs,cs);
 }
 
 function update()
@@ -84,7 +99,18 @@ function update()
     snake.updateSnake();
 }
 
+function getRandomFood(){
 
+	var foodX = Math.round(Math.random()*(W-cs)/cs);
+	var foodY = Math.round(Math.random()*(H-cs)/cs);
+
+	var food = {
+		x:foodX,
+		y:foodY,
+		color:"red",
+	}
+	return food
+}
 
 function gameloop()
 {
